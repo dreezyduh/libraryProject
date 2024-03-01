@@ -20,10 +20,10 @@ myLibrary.forEach(element => {
 });
 
 function closeForm() {
-    const author = document.querySelector(`#author`).value
-    const title = document.querySelector(`#title`).value
-    const pages = document.querySelector(`#pages`).value
-    const read = document.querySelector(`#read`).value
+    const author = document.querySelector(`#author`).value;
+    const title = document.querySelector(`#title`).value;
+    const pages = document.querySelector(`#pages`).value;
+    const read = document.querySelector('input[name="read"]:checked').value;
     dialog.close();
     const book = new Book(author, title, pages, read);
     addBookToLibrary(book);
@@ -49,7 +49,8 @@ function addBookToLibrary(object) {
     const author = document.createElement(`p`);
     const pages = document.createElement(`p`);
     const read = document.createElement(`p`);
-    const readBtn = document.createElement(`button`)
+    const readBtn = document.createElement(`button`);
+    const removeBtn = document.createElement(`button`);
     card.setAttribute(`class`, `card`);
     cards.appendChild(card);
     card.appendChild(author);
@@ -57,6 +58,7 @@ function addBookToLibrary(object) {
     card.appendChild(pages);
     card.appendChild(read);
     card.appendChild(readBtn);
+    card.appendChild(removeBtn);
     author.textContent = `Author: ${object.author}`;
     title.textContent = `Title: ${object.title}`;
     pages.textContent = `Pages: ${object.pages}`;
@@ -69,5 +71,9 @@ function addBookToLibrary(object) {
         } else {
             read.textContent = readValue[0];
         }
+    });
+    removeBtn.textContent = `Remove`
+    removeBtn.addEventListener(`click`, function() {
+        cards.removeChild(card);
     });
 }
