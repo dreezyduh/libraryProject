@@ -26,54 +26,57 @@ function closeForm() {
     const read = document.querySelector('input[name="read"]:checked').value;
     dialog.close();
     const book = new Book(author, title, pages, read);
-    addBookToLibrary(book);
+    book.addBookToLibrary(book);
 }
 
-function Book(author, title, pages, read) {
+class Book {
     // the constructor...
-    this.author = author;
-    this.title = title;
-    this.pages = pages;
-    this.read = read;
+    constructor (author, title, pages, read) {
+        this.author = author;
+        this.title = title;
+        this.pages = pages;
+        this.read = read;
+    }
+
+    addBookToLibrary(object) {
+        // do stuff here
+        
+        const card = document.createElement(`div`);
+        const title = document.createElement(`p`);
+        const author = document.createElement(`p`);
+        const pages = document.createElement(`p`);
+        const read = document.createElement(`p`);
+        const readBtn = document.createElement(`button`);
+        const removeBtn = document.createElement(`button`);
+        card.setAttribute(`class`, `card`);
+        cards.appendChild(card);
+        card.appendChild(author);
+        card.appendChild(title);
+        card.appendChild(pages);
+        card.appendChild(read);
+        card.appendChild(readBtn);
+        card.appendChild(removeBtn);
+        author.textContent = `Author: ${this.author}`;
+        title.textContent = `Title: ${this.title}`;
+        pages.textContent = `Pages: ${this.pages}`;
+        read.textContent = `Read: ${this.read}`;
+        readBtn.textContent = `Switch`
+        readBtn.addEventListener(`click`, function() {
+            const readValue = [`Read: ✔️`, `Read: ❌`]
+            if (read.textContent === readValue[0]) {
+                read.textContent = readValue[1];
+            } else {
+                read.textContent = readValue[0];
+            }
+        });
+        removeBtn.textContent = `Remove`
+        removeBtn.addEventListener(`click`, function() {
+            cards.removeChild(card);
+        });
+    }
 }
+
 
 function displayBookForm() {
     dialog.showModal();
-}
-
-function addBookToLibrary(object) {
-    // do stuff here
-    
-    const card = document.createElement(`div`);
-    const title = document.createElement(`p`);
-    const author = document.createElement(`p`);
-    const pages = document.createElement(`p`);
-    const read = document.createElement(`p`);
-    const readBtn = document.createElement(`button`);
-    const removeBtn = document.createElement(`button`);
-    card.setAttribute(`class`, `card`);
-    cards.appendChild(card);
-    card.appendChild(author);
-    card.appendChild(title);
-    card.appendChild(pages);
-    card.appendChild(read);
-    card.appendChild(readBtn);
-    card.appendChild(removeBtn);
-    author.textContent = `Author: ${object.author}`;
-    title.textContent = `Title: ${object.title}`;
-    pages.textContent = `Pages: ${object.pages}`;
-    read.textContent = `Read: ${object.read}`;
-    readBtn.textContent = `Switch`
-    readBtn.addEventListener(`click`, function() {
-        const readValue = [`Read: ✔️`, `Read: ❌`]
-        if (read.textContent === readValue[0]) {
-            read.textContent = readValue[1];
-        } else {
-            read.textContent = readValue[0];
-        }
-    });
-    removeBtn.textContent = `Remove`
-    removeBtn.addEventListener(`click`, function() {
-        cards.removeChild(card);
-    });
 }
